@@ -4,7 +4,7 @@ This repository contains code for replicating the experiments and visualizations
 
 [Transparency by Design: Closing the Gap Between Performance and Interpretability in Visual
 Reasoning](https://path/to/the/paper)
-<br> [David Mascharka](https://davidmascharka.com), [Philip Tran](https://github.com/ptran516), [Ryan Soklaski](https://github.com/rsokl), Arjun Majumdar <br>
+>[David Mascharka](https://davidmascharka.com), [Philip Tran](https://github.com/ptran516), [Ryan Soklaski](https://github.com/rsokl), Arjun Majumdar <br>
 
 The paper describes Transparency-by-Design networks (TbD-nets), which are built around a visual
 attention mechanism. This repository contains the model architecture put forward in the paper and
