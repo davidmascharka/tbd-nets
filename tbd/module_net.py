@@ -282,7 +282,7 @@ def load_tbd_net(checkpoint, vocab):
     This pushes the TbD-Net model to the GPU if a GPU is available.
     """
     tbd_net = TbDNet(vocab)
-    tbd_net.load_state_dict(torch.load(str(checkpoint)))
+    tbd_net.load_state_dict(torch.load(str(checkpoint), map_location='cpu'))
     if torch.cuda.is_available():
         tbd_net.cuda()
     return tbd_net
