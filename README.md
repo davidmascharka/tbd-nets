@@ -180,7 +180,8 @@ CUDA, see the [NVIDIA documentation](https://developer.nvidia.com/cuda-toolkit).
 cuDNN, which is also available [from NVIDIA](https://developer.nvidia.com/cudnn).
 
 ### Operating Systems
-Our development was done on CentOS 6 and Ubuntu 16.04.
+Our development was done on CentOS 6 and Ubuntu 16.04. The code has also been tested under Arch
+Linux.
 
 ### Setting up a conda environment
 If you like, you can use the `environment.yml` configuration to set up a development environment if
