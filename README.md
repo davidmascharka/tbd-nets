@@ -1,4 +1,6 @@
 # Transparency-by-Design networks (TbD-nets)
+![Python version support](https://img.shields.io/badge/python-3.5%20%203.6-blue.svg)
+![PyTorch version support](https://img.shields.io/badge/pytorch-0.2%20%200.3%20%200.4a-red.svg)
 
 This repository contains code for replicating the experiments and visualizations from the paper
 
