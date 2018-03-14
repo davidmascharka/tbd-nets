@@ -1,4 +1,3 @@
-name: tbd-env
 channels:
  - conda-forge
  - pytorch
