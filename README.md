@@ -42,7 +42,7 @@ chain back, see the [full VQA example notebook](full-vqa-example.ipynb). This wi
 machinery you need to perform the full VQA task and will allow you to download the necessary models.
 
 # Recreating Our Visualizations
-You can [use Binder to use our model without any setup!]https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
+You can [use Binder to use our model without any setup!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
 
 To reproduce our work on your local machine, you'll need to clone this repository and [set up
 PyTorch](#pytorch). We also recommend using [CUDA and cuDNN](#cudacudnn) if you have a GPU
