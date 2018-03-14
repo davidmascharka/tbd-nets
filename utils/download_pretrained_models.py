@@ -57,7 +57,7 @@ def download(fnames):
         print('  and that the \'models\' directory exists')
         sys.exit()
 
-    server_url = 'ftp://ftp.ll.mit.edu/outgoing/vans/'
+    server_url = 'https://github.com/davidmascharka/tbd-nets/releases/download/v1.0/'
     if isinstance(fnames, str): # a single file
         fnames = [fnames]
     for fname in fnames:
