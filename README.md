@@ -6,7 +6,7 @@
 This repository contains code for replicating the experiments and visualizations from the paper
 
 [Transparency by Design: Closing the Gap Between Performance and Interpretability in Visual
-Reasoning](https://path/to/the/paper)
+Reasoning](https://arxiv.org/abs/1803.05268)
 >[David Mascharka](https://davidmascharka.com), [Philip Tran](https://github.com/ptran516), [Ryan Soklaski](https://github.com/rsokl), Arjun Majumdar <br>
 
 The paper describes Transparency-by-Design networks (TbD-nets), which are built around a visual
@@ -40,9 +40,10 @@ year = {2018}
 To ask a natural-language question and provide an image to the model and get an answer and reasoning
 chain back, see the [full VQA example notebook](full-vqa-example.ipynb). This will define all the
 machinery you need to perform the full VQA task and will allow you to download the necessary models.
+[Try it with Binder!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
 
 # Recreating Our Visualizations
-You can [use Binder to use our model without any setup!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
+You can [use Binder to use our model without any setup!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=visualize-output.ipynb)
 
 To reproduce our work on your local machine, you'll need to clone this repository and [set up
 PyTorch](#pytorch). We also recommend using [CUDA and cuDNN](#cudacudnn) if you have a GPU
