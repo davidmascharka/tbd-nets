@@ -160,7 +160,7 @@ def load_program_generator(checkpoint):
         The program generator model, which takes as input a question and produces a logical series
         of operations that can be used to answer that question.
     """
-    checkpoint = torch.load(str(checkpoint), map_location={'cuda0': 'cpu'})
+    checkpoint = torch.load(str(checkpoint), map_location={'cuda:0': 'cpu'})
     kwargs = checkpoint['program_generator_kwargs']
     state = checkpoint['program_generator_state']
     program_generator = _Seq2Seq(**kwargs)
