@@ -45,7 +45,8 @@ def load_feature_extractor(model_stage=2, model_path=None):
     This function will download ResNet-101 if it is not already present through torchvision.
     """
     if model_path:
-        model = resnet101().load_state_dict(torch.load(str(model_path)))
+        model = resnet101()
+        model.load_state_dict(torch.load(str(model_path)))
     else:
         model = resnet101(pretrained=True)
         
