@@ -23,7 +23,7 @@ import numpy as np
 from scipy.misc import imread, imresize
 from torchvision.models import resnet101
 
-def load_feature_extractor(model_stage=2):
+def load_feature_extractor(model_stage=2, model_path=None):
     """ Load the appropriate parts of ResNet-101 for feature extraction.
 
     Parameters
@@ -31,6 +31,9 @@ def load_feature_extractor(model_stage=2):
     model_stage : Integral
         The stage of ResNet-101 from which to extract features.
         For 28x28 feature maps, this should be 2. For 14x14 feature maps, 3.
+
+    model_path : Union[pathlib.Path, str], optional (default=None)
+        The path to the model checkpoint, or None. If None, use the torchvision default.
 
     Returns
     -------
@@ -41,7 +44,11 @@ def load_feature_extractor(model_stage=2):
     -----
     This function will download ResNet-101 if it is not already present through torchvision.
     """
-    model = resnet101(pretrained=True)
+    if model_path:
+        model = resnet101().load_state_dict(torch.load(str(model_path)))
+    else:
+        model = resnet101(pretrained=True)
+        
     layers = [model.conv1, model.bn1, model.relu, model.maxpool]
     layers += [getattr(model, 'layer{}'.format(i+1)) for i in range(model_stage)]
     model = torch.nn.Sequential(*layers)

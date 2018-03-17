@@ -1,3 +1,4 @@
 #!/bin/bash
 
 wget -P models/ https://github.com/davidmascharka/tbd-nets/releases/download/v1.0/clevr-reg-hres.pt
+wget -P models/ https://download.pytorch.org/models/resnet101-5d3b4d8f.pth
