@@ -1,5 +1,5 @@
 # Transparency-by-Design networks (TbD-nets)
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/binder?filepath=full-vqa-example.ipynb)
 ![Python version support](https://img.shields.io/badge/python-3.5%20%203.6-blue.svg)
 ![PyTorch version support](https://img.shields.io/badge/pytorch-0.2%20%200.3%20%200.4a-red.svg)
 
@@ -40,10 +40,10 @@ year = {2018}
 To ask a natural-language question and provide an image to the model and get an answer and reasoning
 chain back, see the [full VQA example notebook](full-vqa-example.ipynb). This will define all the
 machinery you need to perform the full VQA task and will allow you to download the necessary models.
-[Try it with Binder!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=full-vqa-example.ipynb)
+[Try it with Binder!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/binder?filepath=full-vqa-example.ipynb)
 
 # Recreating Our Visualizations
-You can [use Binder to use our model without any setup!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/master?filepath=visualize-output.ipynb)
+You can [use Binder to use our model without any setup!](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/binder?filepath=visualize-output.ipynb)
 
 To reproduce our work on your local machine, you'll need to clone this repository and [set up
 PyTorch](#pytorch). We also recommend using [CUDA and cuDNN](#cudacudnn) if you have a GPU
