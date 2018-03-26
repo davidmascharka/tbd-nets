@@ -9,5 +9,6 @@ dependencies:
   - h5py=2.7
   - pathlib2=2.3
   - scipy=0.19.1
+  - jupyter=1.0.0
   - torchvision
   - pytorch
