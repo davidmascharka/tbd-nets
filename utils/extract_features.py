@@ -64,7 +64,7 @@ def extract_image_feats(img_path, model):
 
     Returns
     -------
-    Tuple[numpy.ndarray, torch.autograd.Variable]
+    Tuple[numpy.ndarray, torch.Tensor]
         The image and image features extracted from `model`
     """
     # read in the image and transform it to shape (1, 3, 224, 224)
@@ -81,6 +81,5 @@ def extract_image_feats(img_path, model):
     # push to the GPU if possible
     if torch.cuda.is_available():
         img_tensor = img_tensor.cuda()
-    img_var = torch.autograd.Variable(img_tensor)
 
-    return (img.squeeze().transpose(1, 2, 0), model(img_var))
+    return (img.squeeze().transpose(1, 2, 0), model(img_tensor))

@@ -1,7 +1,7 @@
 # Transparency-by-Design networks (TbD-nets)
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/davidmascharka/tbd-nets/binder?filepath=full-vqa-example.ipynb)
 ![Python version support](https://img.shields.io/badge/python-3.5%20%203.6-blue.svg)
-![PyTorch version support](https://img.shields.io/badge/pytorch-0.2%20%200.3%20%200.4a-red.svg)
+![PyTorch version support](https://img.shields.io/badge/pytorch-0.2%200.3%200.4-red.svg)
 
 This repository contains code for replicating the experiments and visualizations from the paper
 
@@ -169,12 +169,12 @@ We only recommend running the code with Python 3, having done all our developmen
 issues that are related to Python 2 support.
 
 ### PyTorch
-Our development was done using PyTorch v0.1.12, v0.2.0, and v0.3.0 and has been tested with alpha
-builds of v0.4. As such, our code should run even on PyTorch versions earlier than 0.2 without
-modifications. However, we do recommend running on PyTorch 0.2.0 or later. For setting up PyTorch,
-see the [official installation instructions](https://github.com/pytorch/pytorch#installation). The
-specific hash that the original model from our paper was developed from is
+Our development was done using PyTorch v0.1.12, v0.2.0, and v0.3.0 and has been tested with v0.4. As such, our code
+should run even on PyTorch versions earlier than 0.2 without modifications. However, we do recommend running on PyTorch 
+0.2.0 or later. For setting up PyTorch, see the [official installation instructions](https://github.com/pytorch/pytorch#installation). The specific hash that the original model from our paper was developed from is
 [here](https://github.com/pytorch/pytorch/tree/d9b89a352c4ceeff24878f4f5321e16f059e98c3).
+
+To use PyTorch <0.4, clone the repository and check out `tags/torchv0.3`. For PyTorch 0.4 and above, `master` will run.
 
 ### CUDA/cuDNN
 Our code is tested under CUDA 8 and CUDA 9 with cuDNN 5 and cuDNN 7, respectively. For setting up

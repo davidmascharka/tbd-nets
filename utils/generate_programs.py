@@ -26,7 +26,6 @@
 # work.
 
 import torch
-from torch.autograd import Variable
 import torch.nn.functional as F
 import torch.nn as nn
 import numpy as np
@@ -58,7 +57,6 @@ class _Seq2Seq(nn.Module):
         self.NULL = null_token
         self.START = start_token
         self.END = end_token
-        self.multinomial_outputs = None
 
     def get_dims(self, x=None, y=None):
         V_in = self.encoder_embed.num_embeddings
@@ -79,19 +77,19 @@ class _Seq2Seq(nn.Module):
         x_cpu = x.cpu()
         for i in range(N):
             for t in range(T - 1):
-                if x_cpu.data[i, t] != self.NULL and x_cpu.data[i, t + 1] == self.NULL:
+                if x_cpu[i, t] != self.NULL and x_cpu[i, t + 1] == self.NULL:
                     idx[i] = t
                     break
-        idx = idx.type_as(x.data)
-        x[x.data == self.NULL] = replace
-        return x, Variable(idx)
+        idx = idx.type_as(x)
+        x[x == self.NULL] = replace
+        return x, idx
 
     def encoder(self, x):
         V_in, V_out, D, H, L, N, T_in, T_out = self.get_dims(x=x)
         x, idx = self.before_rnn(x)
         embed = self.encoder_embed(x)
-        h0 = Variable(torch.zeros(L, N, H).type_as(embed.data))
-        c0 = Variable(torch.zeros(L, N, H).type_as(embed.data))
+        h0 = torch.zeros(L, N, H).type_as(embed)
+        c0 = torch.zeros(L, N, H).type_as(embed)
         out, _ = self.encoder_rnn(embed, (h0, c0))
         idx = idx.view(N, 1, 1).expand(N, 1, H)
         return out.gather(1, idx).view(N, H)
@@ -106,9 +104,9 @@ class _Seq2Seq(nn.Module):
         encoded_repeat = encoded_repeat.expand(N, T_out, H)
         rnn_input = torch.cat([encoded_repeat, y_embed], 2)
         if h0 is None:
-            h0 = Variable(torch.zeros(L, N, H).type_as(encoded.data))
+            h0 = torch.zeros(L, N, H).type_as(encoded)
         if c0 is None:
-            c0 = Variable(torch.zeros(L, N, H).type_as(encoded.data))
+            c0 = torch.zeros(L, N, H).type_as(encoded)
         rnn_output, (ht, ct) = self.decoder_rnn(rnn_input, (h0, c0))
 
         rnn_output_2d = rnn_output.contiguous().view(N * T_out, H)
@@ -121,24 +119,22 @@ class _Seq2Seq(nn.Module):
         encoded = self.encoder(x)
         y = torch.LongTensor(N, T).fill_(self.NULL)
         done = torch.ByteTensor(N).fill_(0)
-        cur_input = Variable(x.data.new(N, 1).fill_(self.START))
+        cur_input = x.new(N, 1).fill_(self.START)
         h, c = None, None
-        self.multinomial_outputs = []
-        self.multinomial_probs = []
         for t in range(T):
             # logprobs is N x 1 x V
             logprobs, h, c = self.decoder(encoded, cur_input, h0=h, c0=c)
             probs = F.softmax(logprobs.view(N, -1), dim=1) # Now N x V
             _, cur_output = probs.max(1)
             cur_output = cur_output.unsqueeze(1)
-            cur_output_data = cur_output.data.cpu()
+            cur_output_data = cur_output.cpu()
             not_done = logical_not(done)
-            y[:, t][not_done] = cur_output_data[not_done]
+            y[:, t][not_done] = cur_output_data[not_done][0]
             done = logical_or(done, cur_output_data.cpu().squeeze() == self.END)
             cur_input = cur_output
             if done.sum() == N:
                 break
-        return Variable(y.type_as(x.data))
+        return y.type_as(x)
 
 def logical_or(x, y):
     return (x + y).clamp_(0, 1)
@@ -183,7 +179,7 @@ def generate_single_program(question, program_generator, vocab, question_len=46)
 
     Returns
     -------
-    torch.autograd.Variable
+    torch.Tensor
         The program encoding the logical steps to perform in answering the question.
     """
     # remove punctuation from our question
@@ -215,8 +211,7 @@ def generate_single_program(question, program_generator, vocab, question_len=46)
     program_generator.eval()
     
     # generate a program
-    question_var = Variable(question_tensor)
-    return program_generator.reinforce_sample(question_var)
+    return program_generator.reinforce_sample(question_tensor)
     
 
 def generate_programs(h5_file, program_generator, dest_dir, batch_size):
@@ -255,12 +250,11 @@ def generate_programs(h5_file, program_generator, dest_dir, batch_size):
         progs = []
         for start_idx in range(0, len(questions), batch_size):
             question_batch = questions[start_idx:start_idx+batch_size]
-            questions_var = Variable(torch.LongTensor(question_batch).type(dtype).long(),
-                                     volatile=True)
+            questions_var = torch.LongTensor(question_batch).type(dtype).long()
             programs_pred = program_generator.reinforce_sample(questions_var)
             
             for program in programs_pred:
-                progs.append(program.data.cpu().numpy())
+                progs.append(program.cpu().numpy())
         progs = np.asarray(progs)
     
     dest = Path(dest_dir)
