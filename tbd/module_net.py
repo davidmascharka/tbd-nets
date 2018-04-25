@@ -20,7 +20,6 @@
 
 import torch
 import torch.nn as nn
-from torch.autograd import Variable
 
 from . import modules
 
@@ -125,7 +124,7 @@ class TbDNet(nn.Module):
 
         # this is used as input to the first AttentionModule in each program
         ones = torch.ones(1, 1, module_rows, module_cols)
-        self.ones_var = Variable(ones.cuda()) if torch.cuda.is_available() else Variable(ones)
+        self.ones_var = ones.cuda() if torch.cuda.is_available() else ones
         
         self._attention_sum = 0
 
@@ -152,7 +151,7 @@ class TbDNet(nn.Module):
             loss.backward()
 
         where `xent_loss` is our loss function, `outs` is the output of the model, `answers` is the
-        PyTorch `Variable` containing the answers, and `executor` is this model. The above block
+        PyTorch `Tensor` containing the answers, and `executor` is this model. The above block
         will penalize the model's attention outputs multiplied by a factor of 2.5e-07 to push the
         model to produce sensible, minimal activations.
         '''
@@ -209,10 +208,10 @@ class TbDNet(nn.Module):
 
         Parameters
         ----------
-        program_var : torch.autograd.Variable
+        program_var : torch.Tensor
             The program to carry out.
 
-        feats_var : torch.autograd.Variable
+        feats_var : torch.Tensor
             The image features to operate on.
         
         Returns
@@ -258,7 +257,7 @@ class TbDNet(nn.Module):
                 intermediaries.append((module_type, output.data.cpu().numpy().squeeze()))
 
         _, pred = self.classifier(output).max(1)
-        return (self.vocab['answer_idx_to_token'][pred.data[0]], intermediaries)
+        return (self.vocab['answer_idx_to_token'][pred.item()], intermediaries)
 
 
 def load_tbd_net(checkpoint, vocab):
