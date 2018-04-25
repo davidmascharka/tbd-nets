@@ -174,7 +174,7 @@ should run even on PyTorch versions earlier than 0.2 without modifications. Howe
 0.2.0 or later. For setting up PyTorch, see the [official installation instructions](https://github.com/pytorch/pytorch#installation). The specific hash that the original model from our paper was developed from is
 [here](https://github.com/pytorch/pytorch/tree/d9b89a352c4ceeff24878f4f5321e16f059e98c3).
 
-To use PyTorch <0.4, clone the repository and check out `tags/torchv0.3`. For PyTorch 0.4 and above, `master` will run.
+To use PyTorch <0.4, clone the repository and check out `tags/torch0.3`. For PyTorch 0.4 and above, `master` will run.
 
 ### CUDA/cuDNN
 Our code is tested under CUDA 8 and CUDA 9 with cuDNN 5 and cuDNN 7, respectively. For setting up
