@@ -134,13 +134,12 @@ work, so we reuse the program generator from [Johnson *et
 al.*](https://github.com/facebookresearch/clevr-iep) We have repackaged the sequence-to-sequence
 model they use for this, removing unnecessary functionality and updating the code to run on PyTorch
 versions later than 0.1. We provide a model checkpoint that we trained ourselves, so you don't need
-to download and use their model. The [test-eval notebook](test-eval.ipynb) will download our program
-generation model and walk through the process to produce a file containing the predicted test
-answers.
+to download and use their model. The [test-eval notebook](test-eval.ipynb) will walk through the 
+process to produce a file containing the predicted test answers.
 
 # Notes
 ### Downloading Models
-Tod download models, you can use the `download_pretrained_models.py` script, or download them
+To download models, you can use the `download_pretrained_models.py` script, or download them
 programmatically as we do in the visualize output and full VQA notebooks.
 
 There are several pretrained models available. If you would like to play with a specific model from
