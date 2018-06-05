@@ -514,7 +514,7 @@ def generate_programs(h5_file, program_generator, dest_dir, batch_size):
             questions_var = torch.LongTensor(question_batch).type(dtype).long()
             for question in questions_var:
                 program = program_generator.reinforce_sample(question.view(1, -1))
-                progs.append(program.cpu().numpy())
+                progs.append(program.cpu().numpy().squeeze())
         progs = np.asarray(progs)
     
     dest = Path(dest_dir)
