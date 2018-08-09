@@ -258,7 +258,7 @@ class TbDNet(nn.Module):
                 intermediaries.append((module_type, output.data.cpu().numpy().squeeze()))
 
         _, pred = self.classifier(output).max(1)
-        return (self.vocab['answer_idx_to_token'][pred.data[0]], intermediaries)
+        return (self.vocab['answer_idx_to_token'][pred.item()], intermediaries)
 
 
 def load_tbd_net(checkpoint, vocab):
