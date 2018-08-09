@@ -83,16 +83,16 @@ class AttentionModule(nn.Module):
         self.conv1 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(dim, dim, kernel_size=3, padding=1) 
         self.conv3 = nn.Conv2d(dim, 1, kernel_size=1, padding=0)
-        torch.nn.init.kaiming_normal(self.conv1.weight)
-        torch.nn.init.kaiming_normal(self.conv2.weight)
-        torch.nn.init.kaiming_normal(self.conv3.weight)
+        torch.nn.init.kaiming_normal_(self.conv1.weight)
+        torch.nn.init.kaiming_normal_(self.conv2.weight)
+        torch.nn.init.kaiming_normal_(self.conv3.weight)
         self.dim = dim
 
     def forward(self, feats, attn):
         attended_feats = torch.mul(feats, attn.repeat(1, self.dim, 1, 1))
         out = F.relu(self.conv1(attended_feats))
         out = F.relu(self.conv2(out))
-        out = F.sigmoid(self.conv3(out))
+        out = torch.sigmoid(self.conv3(out))
         return out
 
 
@@ -119,8 +119,8 @@ class QueryModule(nn.Module):
         super().__init__()
         self.conv1 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
-        torch.nn.init.kaiming_normal(self.conv1.weight)
-        torch.nn.init.kaiming_normal(self.conv2.weight)
+        torch.nn.init.kaiming_normal_(self.conv1.weight)
+        torch.nn.init.kaiming_normal_(self.conv2.weight)
         self.dim = dim
 
     def forward(self, feats, attn):
@@ -154,12 +154,12 @@ class RelateModule(nn.Module):
         self.conv4 = nn.Conv2d(dim, dim, kernel_size=3, padding=8, dilation=8)  # 31 -- full image
         self.conv5 = nn.Conv2d(dim, dim, kernel_size=3, padding=1, dilation=1)
         self.conv6 = nn.Conv2d(dim, 1, kernel_size=1, padding=0)
-        torch.nn.init.kaiming_normal(self.conv1.weight)
-        torch.nn.init.kaiming_normal(self.conv2.weight)
-        torch.nn.init.kaiming_normal(self.conv3.weight)
-        torch.nn.init.kaiming_normal(self.conv4.weight)
-        torch.nn.init.kaiming_normal(self.conv5.weight)
-        torch.nn.init.kaiming_normal(self.conv6.weight)
+        torch.nn.init.kaiming_normal_(self.conv1.weight)
+        torch.nn.init.kaiming_normal_(self.conv2.weight)
+        torch.nn.init.kaiming_normal_(self.conv3.weight)
+        torch.nn.init.kaiming_normal_(self.conv4.weight)
+        torch.nn.init.kaiming_normal_(self.conv5.weight)
+        torch.nn.init.kaiming_normal_(self.conv6.weight)
         self.dim = dim
 
     def forward(self, feats, attn):
@@ -169,7 +169,7 @@ class RelateModule(nn.Module):
         out = F.relu(self.conv3(out))
         out = F.relu(self.conv4(out))
         out = F.relu(self.conv5(out))
-        out = F.sigmoid(self.conv6(out))
+        out = torch.sigmoid(self.conv6(out))
         return out
 
 
@@ -197,7 +197,7 @@ class SameModule(nn.Module):
     def __init__(self, dim):
         super().__init__()
         self.conv = nn.Conv2d(dim+1, 1, kernel_size=1)
-        torch.nn.init.kaiming_normal(self.conv.weight)
+        torch.nn.init.kaiming_normal_(self.conv.weight)
         self.dim = dim
 
     def forward(self, feats, attn):
@@ -207,7 +207,7 @@ class SameModule(nn.Module):
         attended_feats = attended_feats.index_select(3, the_idx[0, 0, 0, 0] % size)
         x = torch.mul(feats, attended_feats.repeat(1, 1, size, size))
         x = torch.cat([x, attn], dim=1)
-        out = F.sigmoid(self.conv(x))
+        out = torch.sigmoid(self.conv(x))
         return out
 
 
@@ -234,8 +234,8 @@ class ComparisonModule(nn.Module):
         self.projection = nn.Conv2d(2*dim, dim, kernel_size=1, padding=0)
         self.conv1 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(dim, dim, kernel_size=3, padding=1)
-        torch.nn.init.kaiming_normal(self.conv1.weight)
-        torch.nn.init.kaiming_normal(self.conv2.weight)
+        torch.nn.init.kaiming_normal_(self.conv1.weight)
+        torch.nn.init.kaiming_normal_(self.conv2.weight)
 
     def forward(self, in1, in2):
         out = torch.cat([in1, in2], 1)
