@@ -9,5 +9,5 @@ dependencies:
   - h5py=2.7
   - pathlib2=2.3
   - scipy=0.19.1
-  - torchvision
-  - pytorch-cpu=0.3
+  - torchvision-cpu
+  - pytorch-cpu
