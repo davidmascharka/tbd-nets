@@ -20,7 +20,8 @@
 
 import torch
 import numpy as np
-from scipy.misc import imread, imresize
+from PIL import Image
+from scipy.misc import imread
 from torchvision.models import resnet101
 
 def load_feature_extractor(model_stage=2):
@@ -70,7 +71,7 @@ def extract_image_feats(img_path, model):
     # read in the image and transform it to shape (1, 3, 224, 224)
     path = str(img_path) # to handle pathlib
     img = imread(path, mode='RGB')
-    img = imresize(img, (224, 224), interp='bicubic')
+    img = np.array(Image.fromarray(img).resize((224, 224), resample=Image.BICUBIC))
     img = img.transpose(2, 0, 1)[None]
 
     # use ImageNet statistics to transform the data
